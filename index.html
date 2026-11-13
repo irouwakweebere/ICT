@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#f4f7fc">
     <meta name="description" content="ICT Innovation Center at the University of Nigeria, Nsukka — digital services, training, connectivity and innovation.">
     <title>ICT Innovation Center | University of Nigeria, Nsukka</title>
-    <link rel="stylesheet" href="/styles.css">
-    <script src="/app.js" defer></script>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./app.js" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -18,7 +18,7 @@
       <nav class="main-nav" aria-label="Main navigation">
         <a href="#units">Our units</a>
         <a href="#training">Training</a>
-        <a href="#about">About us</a>
+        <a href="?page=about" data-page="about">About us</a>
       </nav>
       <div class="header-actions">
         <button class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">
@@ -30,7 +30,7 @@
     </header>
 
     <main id="home-view" class="page-view">
-      <section class="hero section-wrap" id="about">
+      <section class="hero section-wrap">
         <div class="hero-copy">
           <span class="eyebrow"><span class="eyebrow-dot"></span> UNIVERSITY OF NIGERIA, NSUKKA</span>
           <h1>Technology that<br>moves <span>UNN forward.</span></h1>
@@ -60,7 +60,7 @@
       <section class="services-section section-wrap" id="units">
         <div class="section-heading">
           <div><span class="eyebrow">WHAT WE DO</span><h2>Nine units. One connected campus.</h2></div>
-          <p>Specialist teams working together to make technology more useful, accessible and inspiring across UNN.</p>
+          <p>Specialist teams working together to make technology more useful, accessible and inspiring across the university.</p>
         </div>
         <div class="service-grid">
           <article class="service-card card-web">
@@ -72,31 +72,31 @@
           <article class="service-card card-webometrics">
             <div class="card-top"><span class="service-icon icon-violet" aria-hidden="true">↗</span><span class="card-index">02</span></div>
             <h3>Webometrics Unit</h3>
-            <p>We gather and organize university research and articles, supporting UNN’s web presence and global visibility.</p>
+            <p>We gather and organize university research and articles, supporting our universty's virtual presence and global visibility.</p>
             <a class="card-link" href="mailto:ict@unn.edu.ng?subject=Webometrics%20enquiry">Contact the team <span aria-hidden="true">↗</span></a>
           </article>
           <article class="service-card card-customer">
             <div class="card-top"><span class="service-icon icon-green" aria-hidden="true">◎</span><span class="card-index">03</span></div>
             <h3>Customer Service</h3>
-            <p>Support for lecturers with uploading students’ results and help navigating ICT services across the university.</p>
+            <p>We help with the uploading our students’ results and help in navigating ICT services across the university.</p>
             <a class="card-link" href="mailto:ict@unn.edu.ng?subject=ICT%20customer%20support">Get support <span aria-hidden="true">↗</span></a>
           </article>
           <article class="service-card card-innovation">
             <div class="card-top"><span class="service-icon icon-orange" aria-hidden="true">✳</span><span class="card-index">04</span></div>
             <h3>Innovation Unit</h3>
-            <p>Book a meeting in our conference room or at your location, and find the official UNN ID card registration link.</p>
+            <p>Book a meeting in our conference room or at your location, and register for your ID CARD.</p>
             <button class="card-link card-button" type="button" data-page="innovation">Explore innovation services <span aria-hidden="true">↗</span></button>
           </article>
           <article class="service-card card-training" id="training">
             <div class="card-top"><span class="service-icon icon-pink" aria-hidden="true">⌁</span><span class="card-index">05</span></div>
             <h3>Training Unit</h3>
-            <p>Build your digital confidence with practical Basic Computer or Coding training for students.</p>
+            <p>Build your digital confidence with practical Basic Computer or Coding training.</p>
             <button class="card-link card-button" type="button" data-page="training">View courses &amp; register <span aria-hidden="true">↗</span></button>
           </article>
           <article class="service-card card-network">
             <div class="card-top"><span class="service-icon icon-cyan" aria-hidden="true">⌘</span><span class="card-index">06</span></div>
             <h3>Networking Unit</h3>
-            <p>Connecting campus with internet and network infrastructure, including MTN fibre, and helping students access UNN Wi-Fi.</p>
+            <p>Connecting the campus with internet and network infrastructure, including MTN fibre, and giving our students access to the Wi-Fi.</p>
             <a class="card-link" href="mailto:ict@unn.edu.ng?subject=Campus%20network%20and%20Wi-Fi%20support">Network &amp; Wi-Fi help <span aria-hidden="true">↗</span></a>
           </article>
           <article class="service-card card-hardware">
@@ -114,7 +114,7 @@
           <article class="service-card card-portal">
             <div class="card-top"><span class="service-icon icon-blue" aria-hidden="true">▤</span><span class="card-index">09</span></div>
             <h3>Portal Unit</h3>
-            <p>Help for students with issues accessing or using the UNN student portal.</p>
+            <p>We help students who have issues accessing or using the UNN student portal.</p>
             <button class="card-link card-button" type="button" data-page="portal">Get portal support <span aria-hidden="true">↗</span></button>
           </article>
         </div>
@@ -146,11 +146,65 @@
           <div class="form-grid">
             <label>Name<input name="name" autocomplete="name" required maxlength="120" placeholder="Your full name"></label>
             <label>Gender<select name="gender" required><option value="" selected disabled>Select gender</option><option>Female</option><option>Male</option><option>Prefer not to say</option></select></label>
+            <label>Email<input name="email" type="email" required maxlength="120" placeholder="Email"></label>
             <label class="full-field">Department<input name="department" autocomplete="organization" required maxlength="120" placeholder="Your department"></label>
             <label class="full-field">Description<textarea name="description" required maxlength="3000" rows="4" placeholder="How can we help?"></textarea></label>
           </div>
           <div class="form-bottom"><p class="form-status" role="status" aria-live="polite">Send us a message and the relevant team will follow up.</p><button class="button button-primary submit-service" type="submit">Send message <span aria-hidden="true">↗</span></button></div>
         </form>
+      </section>
+    </main>
+
+    <main id="about-view" class="page-view subpage" hidden>
+      <section class="subpage-wrap">
+        <button class="back-link" type="button" data-page="home"><span aria-hidden="true">←</span> Back to home</button>
+        <section class="about-section about-page-content" aria-labelledby="about-title">
+          <div class="about-heading">
+            <span class="eyebrow"><span class="eyebrow-dot"></span> ABOUT US</span>
+            <h1 id="about-title">The ICT Innovation Center,<br><span>University of Nigeria, Nsukka</span></h1>
+          </div>
+
+          <article class="about-story">
+            <h2>Our Story</h2>
+            <p>The ICT Innovation Center at the University of Nigeria, Nsukka, has grown from a modest capacity-building initiative into a hub for digital skills, e-learning, and technological advancement within the university community.</p>
+            <p>Our journey began in 2006, when the university inaugurated a Staff ICT Capacity Building Programme at the Nsukka campus under the leadership of then Vice-Chancellor Prof. Chinedu Nebo. This programme was established with a clear vision: to make our staff and students fully ICT-compliant and to prepare them for the demands of a digital world.</p>
+            <p>Over the years, we evolved from a training-focused unit into a broader ICT/Innovation structure. By the mid-2010s, our mandate had expanded to include innovation alongside core ICT services, with a Director of ICT/Innovation overseeing our operations.</p>
+            <p>A defining moment in our history came in October 2016, when Zenith Bank donated an ultra-modern ICT Centre to the University of Nigeria. This facility — the first of its kind in Nigeria's South-East — was equipped with e-learning halls, over 200 computers, and server facilities. It became a flagship space for our operations and a testament to the confidence our partners place in our vision.</p>
+            <p>That same year, we commissioned a solar power system to ensure stable internet connectivity for our data center operations — a reflection of our commitment to reliability and innovation.</p>
+          </article>
+
+          <div class="about-work">
+            <div class="about-subheading">
+              <span class="eyebrow">OUR WORK</span>
+              <h2>What We Do</h2>
+              <p>At the ICT Innovation Center, we serve as the digital backbone of the University of Nigeria, Nsukka. Our work spans several key areas:</p>
+            </div>
+            <div class="about-work-grid">
+              <article class="about-work-card">
+                <h3>Digital Skills Training</h3>
+                <p>We design and deliver hands-on training programmes for students and staff. Our offerings include intensive courses in computer programming — covering HTML, CSS, and Bootstrap — as well as broader ICT literacy programmes that equip our community with market-relevant skills.</p>
+              </article>
+              <article class="about-work-card">
+                <h3>E-Learning &amp; Research Support</h3>
+                <p>Through our e-learning halls and conference facilities, we provide the infrastructure that powers teaching, learning, and research across the university. We are committed to making digital education accessible and effective for every member of our community.</p>
+              </article>
+              <article class="about-work-card">
+                <h3>ICT Infrastructure &amp; Services</h3>
+                <p>We manage the university's core ICT services, including data center operations, website management, and internet connectivity. Our solar-powered data center ensures that these services remain stable and uninterrupted.</p>
+              </article>
+              <article class="about-work-card">
+                <h3>Innovation &amp; Collaboration</h3>
+                <p>We serve as a platform for innovation initiatives and partnerships. We have hosted and supported programmes that bring together students, staff, and external partners to explore new ideas in technology, entrepreneurship, and digital solutions.</p>
+              </article>
+            </div>
+          </div>
+
+          <article class="about-vision">
+            <span class="eyebrow">LOOKING AHEAD</span>
+            <h2>Our Vision</h2>
+            <p>We are driven by a simple belief: that technology is a catalyst for transformation. Our goal is to position the University of Nigeria, Nsukka, at the forefront of digital innovation in Nigeria and beyond — equipping our community with the skills, infrastructure, and opportunities they need to thrive in a rapidly changing world.</p>
+          </article>
+        </section>
       </section>
     </main>
 
@@ -198,6 +252,7 @@
               <label>Name<input name="name" autocomplete="name" required maxlength="120" placeholder="Your full name"></label>
               <label>Gender<select name="gender" required><option value="" selected disabled>Select gender</option><option>Female</option><option>Male</option><option>Prefer not to say</option></select></label>
               <label>Phone number<input name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="+234 800 000 0000"></label>
+              <label>Email<input name="email" type="email" required maxlength="120" placeholder="Email"></label>
               <label>Department / company<input name="department" autocomplete="organization" required maxlength="120" placeholder="Your department or company"></label>
               <label class="location-field" hidden>Meeting location<input name="location" autocomplete="street-address" maxlength="240" placeholder="Where should we meet?"></label>
               <label class="full-field">Describe the meeting<textarea name="description" required maxlength="3000" rows="4" placeholder="Share the purpose, preferred date and any setup or support you may need."></textarea></label>
@@ -228,7 +283,7 @@
         <button class="back-link" type="button" data-page="home"><span aria-hidden="true">←</span> Back to all units</button>
         <div class="subpage-heading training-page-heading">
           <span class="eyebrow"><span class="eyebrow-dot"></span> UNIT 05 · TRAINING</span>
-          <h1>Build skills for<br><span>what comes next.</span></h1>
+          <h1>We build skills for<br><span>what comes next.</span></h1>
           <p>Choose Basic Computer or Coding training, then register with your details. Course fees are shown before payment.</p>
           <button class="button button-primary register-training" type="button" data-show-training-form>Register now <span aria-hidden="true">↗</span></button>
         </div>
@@ -244,6 +299,7 @@
                 <label>Phone number (if any)<input name="phone" type="tel" autocomplete="tel" maxlength="30" placeholder="+234 800 000 0000"></label>
                 <label>Guardian’s name<input name="guardianName" required maxlength="120" placeholder="Guardian’s full name"></label>
                 <label>Guardian’s phone number<input name="guardianPhone" type="tel" autocomplete="tel" required maxlength="30" placeholder="+234 800 000 0000"></label>
+                <label>Email<input name="email" type="email" required maxlength="120" placeholder="Email"></label>
                 <label class="full-field">Course<select name="course" required><option value="" selected disabled>Select a course</option><option value="basic">Basic Computer</option><option value="coding">Coding</option></select></label>
               </div>
               <div class="course-fee"><span>Course fee</span><strong id="course-fee">Select a course</strong></div>
@@ -262,7 +318,7 @@
         <div class="subpage-heading">
           <span class="eyebrow"><span class="eyebrow-dot"></span> UNIT 08 · SOFTWARE</span>
           <h1>A website built<br>around <span>your idea.</span></h1>
-          <p>Tell our software team what you need. We’ll review your requirements and contact you to agree on a fixed project cost.</p>
+          <p>Tell our team what you need. We’ll review your requirements and contact you to agree on a fixed project cost.</p>
         </div>
         <form class="service-request-form glass-panel" data-service-form="software" novalidate>
           <div class="panel-heading"><span class="eyebrow">WEBSITE PROJECT ENQUIRY</span><h2>Tell us about your website</h2><p>Share enough detail for our team to understand your project.</p></div>
@@ -270,6 +326,7 @@
             <label>Name<input name="name" autocomplete="name" required maxlength="120" placeholder="Your full name"></label>
             <label>Gender<select name="gender" required><option value="" selected disabled>Select gender</option><option>Female</option><option>Male</option><option>Prefer not to say</option></select></label>
             <label>Phone number<input name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="+234 800 000 0000"></label>
+            <label>Email<input name="email" type="email" required maxlength="120" placeholder="Email"></label>
             <label>Department / company<input name="department" autocomplete="organization" required maxlength="120" placeholder="Your department or company"></label>
             <label>Type of website<select name="websiteType" required><option value="" selected disabled>Select a website type</option><option>Business or organization</option><option>Personal portfolio</option><option>Online store</option><option>School or educational</option><option>Other</option></select></label>
             <label>Expected timeline<input name="timeline" required maxlength="120" placeholder="For example, 2–3 months"></label>
@@ -288,7 +345,7 @@
         <div class="subpage-heading">
           <span class="eyebrow"><span class="eyebrow-dot"></span> UNIT 07 · HARDWARE</span>
           <h1>Let’s get your<br>device <span>working.</span></h1>
-          <p>The Hardware Unit assesses laptop and computer-related repairs at the MIS Building. Pricing depends on the device and issue.</p>
+          <p>We at Hardware assesses laptop and computer-related repairs at the MIS Building. Pricing depends on the device and issue.</p>
         </div>
         <form class="service-request-form glass-panel" data-service-form="hardware" novalidate>
           <div class="panel-heading"><span class="eyebrow">REPAIR ENQUIRY</span><h2>Describe the device issue</h2><p>Our Hardware Unit is located at the MIS Building. We’ll follow up about assessment and pricing.</p></div>
@@ -296,6 +353,7 @@
             <label>Name<input name="name" autocomplete="name" required maxlength="120" placeholder="Your full name"></label>
             <label>Gender<select name="gender" required><option value="" selected disabled>Select gender</option><option>Female</option><option>Male</option><option>Prefer not to say</option></select></label>
             <label>Phone number<input name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="+234 800 000 0000"></label>
+            <label>Email<input name="email" type="email" required maxlength="120" placeholder="Email"></label>
             <label>Department / company (if applicable)<input name="department" autocomplete="organization" maxlength="120" placeholder="Your department or company"></label>
             <label>Device type<select name="deviceType" required><option value="" selected disabled>Select a device</option><option>Laptop</option><option>Desktop computer</option><option>Printer</option><option>Other computer appliance</option></select></label>
             <label>Make and model<input name="makeModel" required maxlength="160" placeholder="For example, Dell Latitude 5420"></label>
@@ -313,7 +371,7 @@
         <div class="subpage-heading">
           <span class="eyebrow"><span class="eyebrow-dot"></span> UNIT 09 · STUDENT PORTAL</span>
           <h1>Let’s get your<br>portal <span>sorted.</span></h1>
-          <p>Having trouble with the UNN student portal? Send the Portal Unit the details below so they can help.</p>
+          <p>Having trouble with your student portal? Send the us the details below so we can help.</p>
         </div>
         <form class="service-request-form glass-panel" data-service-form="portal" novalidate>
           <div class="panel-heading"><span class="eyebrow">STUDENT PORTAL SUPPORT</span><h2>Tell us what’s happening</h2><p>Include enough detail for the team to identify and investigate the issue.</p></div>
@@ -323,6 +381,7 @@
             <label>Phone number<input name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="+234 800 000 0000"></label>
             <label>Student registration number<input name="registrationNumber" required maxlength="40" placeholder="Your UNN registration number"></label>
             <label>Department<input name="department" required maxlength="120" placeholder="Your department"></label>
+            <label>Email<input name="Email" required maxlength="120" placeholder="Email"></label>
             <label>Portal issue<select name="issueType" required><option value="" selected disabled>Select an issue</option><option>Cannot log in</option><option>Password or account access</option><option>Registration or course issue</option><option>Payment or fee issue</option><option>Results or academic record</option><option>Other</option></select></label>
             <label class="full-field">Describe the issue<textarea name="description" required maxlength="3000" rows="4" placeholder="What were you trying to do, and what happened? Please do not include your password."></textarea></label>
           </div>
@@ -337,7 +396,7 @@
         <p>Connecting our university<br>to what’s possible.</p>
         <a class="footer-email" href="mailto:Ict.@unn.edu.ng">Ict.@unn.edu.ng <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="footer-bottom"><span>© <span id="current-year"></span> Peace made it</span><a href="#about">Back to top ↑</a></div>
+      <div class="footer-bottom"><span>© <span id="current-year"></span> Peace made it</span><a href="#home-view">Back to top ↑</a></div>
     </footer>
   </body>
 </html>

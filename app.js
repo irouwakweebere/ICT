@@ -1,5 +1,6 @@
 const pageViews = {
   home: document.querySelector("#home-view"),
+  about: document.querySelector("#about-view"),
   innovation: document.querySelector("#innovation-view"),
   meeting: document.querySelector("#meeting-view"),
   "id-card": document.querySelector("#id-card-view"),
@@ -36,10 +37,32 @@ function showPage(page, addHistory = true) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+function goToUnitsSection() {
+  showPage("home", false);
+  const unitsSection = document.querySelector("#units");
+  if (unitsSection) {
+    requestAnimationFrame(() => {
+      const yOffset = unitsSection.getBoundingClientRect().top + window.scrollY - 18;
+      window.scrollTo({ top: yOffset, behavior: "smooth" });
+    });
+  }
+}
+
+document.querySelectorAll('a[href="#units"]').forEach((link) => {
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+    goToUnitsSection();
+  });
+});
+
 document.querySelectorAll("[data-page]").forEach((control) => {
   control.addEventListener("click", (event) => {
     event.preventDefault();
     const page = control.dataset.page;
+    if (page === "home") {
+      goToUnitsSection();
+      return;
+    }
     resetMeetingForm();
     document.querySelector("#training-registration").hidden = true;
     showPage(page);
@@ -155,10 +178,13 @@ document.querySelector("#training-form").addEventListener("submit", (event) => {
 document.querySelector("[data-show-contact]").addEventListener("click", (event) => {
   const button = event.currentTarget;
   const form = document.querySelector("#contact-form");
-  form.hidden = false;
-  button.setAttribute("aria-expanded", "true");
-  form.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  form.querySelector("input[name='name']").focus({ preventScroll: true });
+  const isOpening = form.hidden;
+  form.hidden = !isOpening;
+  button.setAttribute("aria-expanded", String(isOpening));
+  if (isOpening) {
+    form.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    form.querySelector("input[name='name']").focus({ preventScroll: true });
+  }
 });
 
 document.querySelectorAll("[data-service-form]").forEach((form) => {
