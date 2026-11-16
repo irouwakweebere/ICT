@@ -64,20 +64,25 @@ function normalizeServicePayload(payload) {
 
 function validateMeeting(payload) {
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) return "Please submit a valid request.";
-  const required = ["name", "gender", "phone", "department", "description", "meetingType"];
+  const required = ["name", "gender", "phone", "email", "department", "description", "meetingType"];
   for (const key of required) {
     if (typeof payload[key] !== "string" || !payload[key].trim()) return "Please complete all required fields.";
   }
+  if (!isEmailAddress(payload.email)) return "Please enter a valid email address.";
   if (!["Female", "Male", "Prefer not to say"].includes(payload.gender)) return "Choose a valid gender option.";
   if (!["facility", "outside"].includes(payload.meetingType)) return "Choose a valid meeting type.";
   if (payload.meetingType === "outside" && (typeof payload.location !== "string" || !payload.location.trim())) {
     return "Please provide the meeting location.";
   }
-  if (payload.name.length > 120 || payload.phone.length > 30 || payload.department.length > 120 ||
+  if (payload.name.length > 120 || payload.phone.length > 30 || payload.email.length > 120 || payload.department.length > 120 ||
       payload.description.length > 3000 || (payload.location && payload.location.length > 240)) {
     return "One or more fields exceed the allowed length.";
   }
   return null;
+}
+
+function isEmailAddress(value) {
+  return typeof value === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
 function validateServiceRequest(payload) {
@@ -91,17 +96,17 @@ function validateServiceRequest(payload) {
       options: {}
     },
     software: {
-      required: ["name", "gender", "phone", "department", "websiteType", "timeline", "features", "description"],
+      required: ["name", "gender", "phone", "email", "department", "websiteType", "timeline", "features", "description"],
       fields: {
-        name: 120, gender: 40, phone: 30, department: 120, websiteType: 80,
+        name: 120, gender: 40, phone: 30, email: 120, department: 120, websiteType: 80,
         timeline: 120, features: 3000, description: 3000, domainHosting: 1000
       },
       options: { websiteType: ["Business or organization", "Personal portfolio", "Online store", "School or educational", "Other"] }
     },
     hardware: {
-      required: ["name", "gender", "phone", "deviceType", "makeModel", "issue"],
+      required: ["name", "gender", "phone", "email", "deviceType", "makeModel", "issue"],
       fields: {
-        name: 120, gender: 40, phone: 30, department: 120, deviceType: 80,
+        name: 120, gender: 40, phone: 30, email: 120, department: 120, deviceType: 80,
         makeModel: 160, issue: 3000, details: 1500
       },
       options: { deviceType: ["Laptop", "Desktop computer", "Printer", "Other computer appliance"] }
@@ -130,6 +135,7 @@ function validateServiceRequest(payload) {
   if (schema.required.some((key) => typeof normalized[key] !== "string" || !normalized[key].trim())) {
     return "Please complete all required fields.";
   }
+  if (normalized.email !== undefined && !isEmailAddress(normalized.email)) return "Please enter a valid email address.";
   if (!["Female", "Male", "Prefer not to say"].includes(normalized.gender)) return "Choose a valid gender option.";
   for (const [key, maxLength] of Object.entries(schema.fields)) {
     if (normalized[key] !== undefined && (typeof normalized[key] !== "string" || normalized[key].length > maxLength)) {
@@ -148,46 +154,43 @@ function validateServiceRequest(payload) {
 }
 
 async function sendEmailRequest(subject, heading, details, replyTo = "") {
-  const serviceId = process.env.EMAILJS_SERVICE_ID;
-  const templateId = process.env.EMAILJS_TEMPLATE_ID;
-  const publicKey = process.env.EMAILJS_PUBLIC_KEY;
-  if (!serviceId || !templateId || !publicKey) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.RESEND_FROM_EMAIL;
+  const to = process.env.INNOVATION_EMAIL;
+  if (!apiKey || !from || !isEmailAddress(to)) {
     return { status: 503, body: { error: "Email is not configured yet. Please contact the ICT Center directly." } };
   }
 
-  const message = details.map(([label, value]) => `${label}: ${value}`).join("\n\n");
-  const fromName = details.find(([label]) => label === "Name")?.[1] || "Website visitor";
-
+  const text = `${heading}\n\n${details.map(([label, value]) => `${label}: ${value}`).join("\n\n")}`;
   let response;
   try {
-    response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+    response = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
-        service_id: serviceId,
-        template_id: templateId,
-        user_id: publicKey,
-        template_params: {
-          subject,
-          service_type: heading,
-          message,
-          to_name: "ICT Innovation Center",
-          from_name: fromName,
-          from_email: replyTo,
-          reply_to: replyTo
-        }
+        from,
+        to: [to],
+        subject,
+        text,
+        ...(replyTo ? { reply_to: replyTo } : {})
       }),
       signal: AbortSignal.timeout(12_000)
     });
   } catch (error) {
-    console.error("EmailJS request failed:", error.message);
+    console.error("Resend request failed:", error.message);
     return { status: 502, body: { error: "The email service could not be reached. Please try again later." } };
   }
 
   if (!response.ok) {
     const providerMessage = await response.text();
-    console.error(`EmailJS returned ${response.status}: ${providerMessage.slice(0, 500)}`);
-    return { status: 502, body: { error: "The email service could not send your request. Please try again later." } };
+    console.error(`Resend returned ${response.status}: ${providerMessage.slice(0, 500)}`);
+    return {
+      status: 502,
+      body: { error: "Email delivery failed. Check the Resend sender address and API configuration." }
+    };
   }
 
   return { status: 200, body: { message: "Request sent." } };

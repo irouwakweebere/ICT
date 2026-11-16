@@ -20,6 +20,16 @@ document.querySelector(".theme-toggle").addEventListener("click", (event) => {
 
 document.querySelector("#current-year").textContent = new Date().getFullYear();
 
+async function readJsonResponse(response) {
+  const text = await response.text();
+  if (!text || !text.trim()) return null;
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw new Error("The server returned an unexpected response. Please try again.");
+  }
+}
+
 function currentPage() {
   const page = new URLSearchParams(window.location.search).get("page");
   return Object.hasOwn(pageViews, page) ? page : "home";
@@ -139,8 +149,10 @@ meetingForm.addEventListener("submit", async (event) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)
     });
-    const result = await response.json();
-    if (!response.ok) throw new Error(result.error || "We couldn’t send your request. Please try again.");
+    const result = await readJsonResponse(response);
+    if (!response.ok || !result) {
+      throw new Error((result && result.error) || "We couldn’t send your request. Please try again.");
+    }
     meetingForm.reset();
     meetingType.value = body.meetingType;
     locationField.hidden = body.meetingType !== "outside";
@@ -205,8 +217,10 @@ document.querySelectorAll("[data-service-form]").forEach((form) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
       });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || "We couldn’t send your request. Please try again.");
+      const result = await readJsonResponse(response);
+      if (!response.ok || !result) {
+        throw new Error((result && result.error) || "We couldn’t send your request. Please try again.");
+      }
       status.className = "form-status success";
       status.textContent = "Your request has been sent. The relevant team will follow up with you.";
     } catch (error) {
