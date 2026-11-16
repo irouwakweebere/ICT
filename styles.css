@@ -131,6 +131,11 @@ body.dark-theme {
 .card-index { color: var(--faint); font: 700 9px var(--font-display); letter-spacing: 1px; }
 .service-card h3 { margin: 18px 0 7px; font: 700 15px var(--font-display); letter-spacing: -.3px; }
 .service-card > p { margin: 0 0 14px; color: var(--muted); font-size: 11px; line-height: 1.75; }
+.unit-history { width: 100%; margin: 0 0 14px; color: var(--muted); font-size: 10px; line-height: 1.7; }
+.unit-history summary { width: fit-content; color: var(--ink); cursor: pointer; font-weight: 700; }
+.unit-history summary:hover { color: var(--blue); }
+.unit-history summary:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 2px; }
+.unit-history p { margin: 8px 0 0; }
 .card-link { display: inline-flex; align-items: center; gap: 7px; margin-top: auto; padding: 0; border: 0; background: transparent; color: var(--ink); cursor: pointer; font-size: 10px; font-weight: 700; transition: color .2s; }
 .card-link span { color: var(--blue); font-size: 13px; }
 .card-button { font-family: var(--font-body); }

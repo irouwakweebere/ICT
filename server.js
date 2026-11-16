@@ -53,16 +53,6 @@ function readJson(request) {
   });
 }
 
-function escapeHtml(value) {
-  return value.replace(/[&<>\"']/g, (character) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[character]);
-}
-
 function normalizeServicePayload(payload) {
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) return payload;
   const normalized = { ...payload };
@@ -157,44 +147,46 @@ function validateServiceRequest(payload) {
   return null;
 }
 
-async function sendEmailRequest(subject, heading, details) {
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM_EMAIL;
-  const to = process.env.INNOVATION_EMAIL || "Ict.@unn.edu.ng";
-  if (!apiKey || !from) {
+async function sendEmailRequest(subject, heading, details, replyTo = "") {
+  const serviceId = process.env.EMAILJS_SERVICE_ID;
+  const templateId = process.env.EMAILJS_TEMPLATE_ID;
+  const publicKey = process.env.EMAILJS_PUBLIC_KEY;
+  if (!serviceId || !templateId || !publicKey) {
     return { status: 503, body: { error: "Email is not configured yet. Please contact the ICT Center directly." } };
   }
 
-  const text = details.map(([label, value]) => `${label}: ${value}`).join("\n\n");
-  const html = `<h2>${escapeHtml(heading)}</h2>${details.map(([label, value]) =>
-    `<p><strong>${escapeHtml(label)}:</strong><br>${escapeHtml(value).replace(/\r?\n/g, "<br>")}</p>`
-  ).join("")}`;
+  const message = details.map(([label, value]) => `${label}: ${value}`).join("\n\n");
+  const fromName = details.find(([label]) => label === "Name")?.[1] || "Website visitor";
 
   let response;
   try {
-    response = await fetch("https://api.resend.com/emails", {
+    response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        from,
-        to: [to],
-        subject,
-        text,
-        html
+        service_id: serviceId,
+        template_id: templateId,
+        user_id: publicKey,
+        template_params: {
+          subject,
+          service_type: heading,
+          message,
+          to_name: "ICT Innovation Center",
+          from_name: fromName,
+          from_email: replyTo,
+          reply_to: replyTo
+        }
       }),
       signal: AbortSignal.timeout(12_000)
     });
   } catch (error) {
-    console.error("Resend request failed:", error.message);
+    console.error("EmailJS request failed:", error.message);
     return { status: 502, body: { error: "The email service could not be reached. Please try again later." } };
   }
 
   if (!response.ok) {
     const providerMessage = await response.text();
-    console.error(`Resend returned ${response.status}: ${providerMessage.slice(0, 500)}`);
+    console.error(`EmailJS returned ${response.status}: ${providerMessage.slice(0, 500)}`);
     return { status: 502, body: { error: "The email service could not send your request. Please try again later." } };
   }
 
@@ -300,7 +292,7 @@ const server = http.createServer(async (request, response) => {
       const heading = `New ${payload.meetingType === "outside" ? "on-site" : "facility"} meeting request`;
       const subject = `Meeting request — ${payload.name.trim()}`;
       const details = meetingDetails(payload);
-      const result = await sendEmailRequest(subject, heading, details);
+      const result = await sendEmailRequest(subject, heading, details, payload.email || "");
       sendJson(response, result.status, result.body);
       return;
     }
@@ -316,7 +308,7 @@ const server = http.createServer(async (request, response) => {
       : `New ${normalizedPayload.serviceType} unit request`;
     const subject = `${normalizedPayload.serviceType === "contact" ? "Contact" : normalizedPayload.serviceType} request — ${normalizedPayload.name.trim()}`;
     const details = serviceRequestDetails(normalizedPayload);
-    const result = await sendEmailRequest(subject, heading, details);
+    const result = await sendEmailRequest(subject, heading, details, normalizedPayload.email || "");
     sendJson(response, result.status, result.body);
     return;
   }
