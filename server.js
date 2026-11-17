@@ -3,9 +3,13 @@
 const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
+const crypto = require("node:crypto");
 
 const root = __dirname;
 const port = Number(process.env.PORT || 3000);
+const portalApprovalStorePath = path.join(root, "data", "portal-late-registration-approvals.json");
+const staffSessions = new Map();
+const failedStaffLogins = new Map();
 
 function loadLocalEnvironment() {
   const envPath = path.join(root, ".env");
@@ -23,11 +27,12 @@ function loadLocalEnvironment() {
 
 loadLocalEnvironment();
 
-function sendJson(response, status, value) {
+function sendJson(response, status, value, headers = {}) {
   response.writeHead(status, {
     "Content-Type": "application/json; charset=utf-8",
     "Cache-Control": "no-store",
-    "X-Content-Type-Options": "nosniff"
+    "X-Content-Type-Options": "nosniff",
+    ...headers
   });
   response.end(JSON.stringify(value));
 }
@@ -85,6 +90,66 @@ function isEmailAddress(value) {
   return typeof value === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+function loadPortalApprovals() {
+  if (!fs.existsSync(portalApprovalStorePath)) return new Set();
+  const approvals = JSON.parse(fs.readFileSync(portalApprovalStorePath, "utf8"));
+  if (!Array.isArray(approvals) || approvals.some((approval) => typeof approval !== "string" || !/^[a-f0-9]{64}$/.test(approval))) {
+    throw new Error("The portal late-registration approval store is invalid.");
+  }
+  return new Set(approvals);
+}
+
+const portalApprovals = loadPortalApprovals();
+
+function portalApprovalKey(registrationNumber, email) {
+  const secret = process.env.PORTAL_APPROVAL_SECRET;
+  if (!secret || secret.length < 32) return null;
+  const student = JSON.stringify([
+    registrationNumber.trim().toUpperCase(),
+    email.trim().toLowerCase()
+  ]);
+  return crypto.createHmac("sha256", secret).update(student).digest("hex");
+}
+
+function savePortalApprovals(approvals) {
+  const directory = path.dirname(portalApprovalStorePath);
+  const temporaryPath = `${portalApprovalStorePath}.${process.pid}.tmp`;
+  fs.mkdirSync(directory, { recursive: true });
+  fs.writeFileSync(temporaryPath, `${JSON.stringify([...approvals].sort())}\n`, { mode: 0o600 });
+  fs.renameSync(temporaryPath, portalApprovalStorePath);
+}
+
+function isSameOrigin(request) {
+  if (typeof request.headers.origin !== "string" || typeof request.headers.host !== "string") return false;
+  try {
+    return new URL(request.headers.origin).host === request.headers.host;
+  } catch {
+    return false;
+  }
+}
+
+function getCookie(request, name) {
+  const cookies = (request.headers.cookie || "").split(";");
+  const cookie = cookies.map((value) => value.trim()).find((value) => value.startsWith(`${name}=`));
+  return cookie ? decodeURIComponent(cookie.slice(name.length + 1)) : "";
+}
+
+function hasStaffSession(request) {
+  const sessionId = getCookie(request, "ict_staff_session");
+  const expiresAt = staffSessions.get(sessionId);
+  if (!expiresAt) return false;
+  if (expiresAt <= Date.now()) {
+    staffSessions.delete(sessionId);
+    return false;
+  }
+  return true;
+}
+
+function staffCookie(value, maxAge) {
+  const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
+  return `ict_staff_session=${encodeURIComponent(value)}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${maxAge}${secure}`;
+}
+
 function validateServiceRequest(payload) {
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) return "Please submit a valid request.";
   const normalized = normalizeServicePayload(payload);
@@ -119,12 +184,13 @@ function validateServiceRequest(payload) {
       },
       options: {
         issueType: [
-          "Cannot log in",
-          "Password or account access",
-          "Registration or course issue",
-          "Payment or fee issue",
-          "Results or academic record",
-          "Other"
+          "Student profile",
+          "Change of email",
+          "Upgrade of level",
+          "Adding of course",
+          "Dropping of course",
+          "Extra unit (Final Year)",
+          "Late course registration"
         ]
       }
     }

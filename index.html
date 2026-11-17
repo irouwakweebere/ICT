@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f4f7fc">
+    <meta name="theme-color" content="#ffffff">
     <meta name="description" content="ICT Innovation Center at the University of Nigeria, Nsukka — digital services, training, connectivity and innovation.">
     <title>ICT Innovation Center | University of Nigeria, Nsukka</title>
     <link rel="stylesheet" href="./styles.css">
@@ -21,10 +21,6 @@
         <a href="?page=about" data-page="about">About us</a>
       </nav>
       <div class="header-actions">
-        <button class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">
-          <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg>
-          <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 15.4A8.7 8.7 0 0 1 8.6 3.6 8.8 8.8 0 1 0 20.4 15.4Z"></path></svg>
-        </button>
         <a class="button button-small button-primary header-cta" href="#units">Explore services <span aria-hidden="true">↗</span></a>
       </div>
     </header>
@@ -32,115 +28,86 @@
     <main id="home-view" class="page-view">
       <section class="hero section-wrap">
         <div class="hero-copy">
-          <span class="eyebrow"><span class="eyebrow-dot"></span> UNIVERSITY OF NIGERIA, NSUKKA</span>
-          <h1>Technology that<br>moves <span>UNN forward.</span></h1>
-          <p class="hero-intro">From campus-wide connectivity to digital services and hands-on training, we help our university learn, connect and create.</p>
+          <span class="eyebrow">UNIVERSITY OF NIGERIA, NSUKKA</span>
+          <h1>Technology for<br>the UNN community.</h1>
+          <p class="hero-intro">Campus connectivity, ICT services, practical training, and support for students and staff.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#units">Discover our units <span aria-hidden="true">↗</span></a>
             <a class="text-link" href="#training">Find a training course <span aria-hidden="true">→</span></a>
           </div>
-          <div class="hero-note"><span class="note-icon" aria-hidden="true">✳</span><span>One center. Nine specialist teams.<br><strong>Built around the UNN community.</strong></span></div>
+          <div class="hero-note"><span>One center. Nine specialist teams.</span></div>
         </div>
-        <div class="hero-art" aria-label="Illustration of connected digital services" role="img">
-          <div class="art-orbit orbit-one"></div>
-          <div class="art-orbit orbit-two"></div>
-          <div class="art-glow"></div>
-          <div class="art-center"><span class="art-spark" aria-hidden="true">✳</span><span class="art-ict">ICT</span><span class="art-label">INNOVATION<br>CENTER</span></div>
-          <div class="art-node-orbit">
-            <div class="art-node node-web"><span aria-hidden="true">⌘</span><small>Web</small></div>
-            <div class="art-node node-network"><span aria-hidden="true">⌁</span><small>Network</small></div>
-            <div class="art-node node-learn"><span aria-hidden="true">↗</span><small>Learn</small></div>
-            <div class="art-node node-ideas"><span aria-hidden="true">✦</span><small>Ideas</small></div>
-          </div>
-          <div class="art-caption"><span class="caption-line"></span> CONNECTING PEOPLE & POSSIBILITIES</div>
-        </div>
-        <a class="scroll-cue" href="#units"><span class="scroll-wheel" aria-hidden="true"></span> SCROLL TO EXPLORE</a>
       </section>
 
       <section class="services-section section-wrap" id="units">
         <div class="section-heading">
           <div><span class="eyebrow">WHAT WE DO</span><h2>Nine units. One connected campus.</h2></div>
-          <p>Specialist teams working together to make technology more useful, accessible and inspiring across the university.</p>
+          <p>Find the right team and request support.</p>
         </div>
-        <div class="service-grid">
-          <article class="service-card card-web">
-            <div class="card-top"><span class="service-icon icon-blue" aria-hidden="true">⌘</span><span class="card-index">01</span></div>
+        <div class="service-grid" id="unit-grid" data-page="first">
+          <article class="service-card card-web" data-unit-card>
             <h3>Website Unit</h3>
-            <p>UNN’s digital front door. We maintain the university website and help staff and students get their school email accounts.</p>
-            <details class="unit-history">
-              <summary>Read a brief history</summary>
-              <p>As more university information and services moved online, the website became the university’s digital front door. The unit now maintains that online presence and supports staff and students with school email access.</p>
-            </details>
+            <p>University website and school email support.</p>
             <a class="card-link" href="mailto:ict@unn.edu.ng?subject=Website%20and%20school%20email%20support">Website &amp; email support <span aria-hidden="true">↗</span></a>
           </article>
-          <article class="service-card card-webometrics">
-            <div class="card-top"><span class="service-icon icon-violet" aria-hidden="true">↗</span><span class="card-index">02</span></div>
+          <article class="service-card card-webometrics" data-unit-card>
             <h3>Webometrics Unit</h3>
-            <p>We gather and organize university research and articles, supporting our universty's virtual presence and global visibility.</p>
-            <details class="unit-history">
-              <summary>Read a brief history</summary>
-              <p>As the university’s research output and online presence grew, the need to organize and share that work became increasingly important. The Webometrics Unit supports this effort by gathering research and articles that contribute to UNN’s visibility.</p>
-            </details>
+            <p>Organizing university research to improve UNN’s online visibility.</p>
             <a class="card-link" href="mailto:ict@unn.edu.ng?subject=Webometrics%20enquiry">Contact the team <span aria-hidden="true">↗</span></a>
           </article>
-          <article class="service-card card-customer">
-            <div class="card-top"><span class="service-icon icon-green" aria-hidden="true">◎</span><span class="card-index">03</span></div>
+          <article class="service-card card-customer" data-unit-card>
             <h3>Customer Service</h3>
-            <p>We help with the uploading our students’ results and help in navigating ICT services across the university.</p>
-            <details class="unit-history">
-              <summary>Read a brief history</summary>
-              <p>As ICT services expanded across the university, students and staff needed more help finding and using them. Customer Service grew to meet that need, including guidance on ICT services and support for uploading student results.</p>
-            </details>
+            <p>Help with student results and finding ICT services.</p>
             <a class="card-link" href="mailto:ict@unn.edu.ng?subject=ICT%20customer%20support">Get support <span aria-hidden="true">↗</span></a>
           </article>
-          <article class="service-card card-innovation">
-            <div class="card-top"><span class="service-icon icon-orange" aria-hidden="true">✳</span><span class="card-index">04</span></div>
+          <article class="service-card card-innovation" data-unit-card>
             <h3>Innovation Unit</h3>
-            <p>Book a meeting in our conference room or at your location, and register for your ID CARD.</p>
+            <p>Request a meeting or register for a UNN ID card.</p>
             <button class="card-link card-button" type="button" data-page="innovation">Explore innovation services <span aria-hidden="true">↗</span></button>
           </article>
-          <article class="service-card card-training" id="training">
-            <div class="card-top"><span class="service-icon icon-pink" aria-hidden="true">⌁</span><span class="card-index">05</span></div>
+          <article class="service-card card-training" data-unit-card>
             <h3>Training Unit</h3>
-            <p>Build your digital confidence with practical Basic Computer or Coding training.</p>
+            <p>Choose practical computer or coding training.</p>
             <button class="card-link card-button" type="button" data-page="training">View courses &amp; register <span aria-hidden="true">↗</span></button>
           </article>
-          <article class="service-card card-network">
-            <div class="card-top"><span class="service-icon icon-cyan" aria-hidden="true">⌘</span><span class="card-index">06</span></div>
+          <article class="service-card card-network" data-unit-card hidden>
             <h3>Networking Unit</h3>
-            <p>Connecting the campus with internet and network infrastructure, including MTN fibre, and giving our students access to the Wi-Fi.</p>
-            <details class="unit-history">
-              <summary>Read a brief history</summary>
-              <p>Reliable connectivity became essential as teaching, research, and campus services increasingly relied on the internet. The Networking Unit has grown to support that need through campus infrastructure, including MTN fibre, and student Wi-Fi access.</p>
-            </details>
+            <p>Campus internet, network infrastructure, and student Wi-Fi.</p>
             <a class="card-link" href="mailto:ict@unn.edu.ng?subject=Campus%20network%20and%20Wi-Fi%20support">Network &amp; Wi-Fi help <span aria-hidden="true">↗</span></a>
           </article>
-          <article class="service-card card-hardware">
-            <div class="card-top"><span class="service-icon icon-cyan" aria-hidden="true">⚙</span><span class="card-index">07</span></div>
+          <article class="service-card card-hardware" data-unit-card hidden>
             <h3>Hardware Unit</h3>
-            <p>Computer and laptop repairs at the MIS Building. Repair pricing depends on the device and issue.</p>
+            <p>Computer repairs assessed at the MIS Building.</p>
             <button class="card-link card-button" type="button" data-page="hardware">Request a repair assessment <span aria-hidden="true">↗</span></button>
           </article>
-          <article class="service-card card-software">
-            <div class="card-top"><span class="service-icon icon-violet" aria-hidden="true">&lt;/&gt;</span><span class="card-index">08</span></div>
+          <article class="service-card card-software" data-unit-card hidden>
             <h3>Software Unit</h3>
-            <p>Work with our staff to plan and build a website at a fixed, agreed cost.</p>
+            <p>Plan and build a website with our team for an agreed cost.</p>
             <button class="card-link card-button" type="button" data-page="software">Request a website <span aria-hidden="true">↗</span></button>
           </article>
-          <article class="service-card card-portal">
-            <div class="card-top"><span class="service-icon icon-blue" aria-hidden="true">▤</span><span class="card-index">09</span></div>
+          <article class="service-card card-portal" data-unit-card hidden>
             <h3>Portal Unit</h3>
-            <p>We help students who have issues accessing or using the UNN student portal.</p>
+            <p>Help with access and other UNN student portal issues.</p>
             <button class="card-link card-button" type="button" data-page="portal">Get portal support <span aria-hidden="true">↗</span></button>
           </article>
         </div>
+        <div class="unit-pagination" role="group" aria-label="Unit navigation">
+          <button class="unit-page-arrow" id="unit-page-previous" type="button" aria-label="View first five units" aria-controls="unit-grid" hidden>
+            <span aria-hidden="true">←</span>
+          </button>
+          <span class="unit-page-label" id="unit-page-label">View other units</span>
+          <button class="unit-page-arrow" id="unit-page-next" type="button" aria-label="View other units" aria-controls="unit-grid">
+            <span aria-hidden="true">→</span>
+          </button>
+          <p class="unit-page-status" id="unit-page-status" aria-live="polite">Showing units 1–5 of 9</p>
+        </div>
       </section>
 
-      <section class="training-band section-wrap">
+      <section class="training-band section-wrap" id="training">
         <div class="training-copy">
           <span class="eyebrow">YOUR NEXT SKILL STARTS HERE</span>
           <h2>Learn by doing.<br><span>Build what’s next.</span></h2>
-          <p>Choose a course, see the course fee, and get ready to register. Training payment setup is coming soon.</p>
+          <p>Compare computer and coding courses. Fees are shown during registration; online payment is not available yet.</p>
           <button class="button button-light" type="button" data-page="training">Explore training <span aria-hidden="true">↗</span></button>
         </div>
         <div class="course-preview">
@@ -155,7 +122,7 @@
       <section class="closing section-wrap" aria-labelledby="contact-heading">
         <div class="closing-copy">
           <span class="closing-spark" aria-hidden="true">✳</span>
-          <div><span class="eyebrow">LET’S MAKE IT HAPPEN</span><h2 id="contact-heading">Have a question or an idea?</h2><p>Our teams are here to help the UNN community get more from technology.</p></div>
+          <div><span class="eyebrow">CONTACT</span><h2 id="contact-heading">Have a question?</h2><p>Send our team a message.</p></div>
         </div>
         <button class="button button-primary closing-trigger" type="button" data-show-contact aria-controls="contact-form" aria-expanded="false">Get in touch <span aria-hidden="true">↗</span></button>
         <form class="closing-form glass-panel" id="contact-form" data-service-form="contact" hidden novalidate>
@@ -182,35 +149,31 @@
 
           <article class="about-story">
             <h2>Our Story</h2>
-            <p>The ICT Innovation Center at the University of Nigeria, Nsukka, has grown from a modest capacity-building initiative into a hub for digital skills, e-learning, and technological advancement within the university community.</p>
-            <p>Our journey began in 2006, when the university inaugurated a Staff ICT Capacity Building Programme at the Nsukka campus under the leadership of then Vice-Chancellor Prof. Chinedu Nebo. This programme was established with a clear vision: to make our staff and students fully ICT-compliant and to prepare them for the demands of a digital world.</p>
-            <p>Over the years, we evolved from a training-focused unit into a broader ICT/Innovation structure. By the mid-2010s, our mandate had expanded to include innovation alongside core ICT services, with a Director of ICT/Innovation overseeing our operations.</p>
-            <p>A defining moment in our history came in October 2016, when Zenith Bank donated an ultra-modern ICT Centre to the University of Nigeria. This facility — the first of its kind in Nigeria's South-East — was equipped with e-learning halls, over 200 computers, and server facilities. It became a flagship space for our operations and a testament to the confidence our partners place in our vision.</p>
-            <p>That same year, we commissioned a solar power system to ensure stable internet connectivity for our data center operations — a reflection of our commitment to reliability and innovation.</p>
+            <p>Started in 2006 as a staff ICT training programme, the Center now supports digital skills, e-learning, campus technology, and innovation. In 2016, Zenith Bank donated the ICT Centre, which includes e-learning halls, computer facilities, and a data center.</p>
           </article>
 
           <div class="about-work">
             <div class="about-subheading">
               <span class="eyebrow">OUR WORK</span>
               <h2>What We Do</h2>
-              <p>At the ICT Innovation Center, we serve as the digital backbone of the University of Nigeria, Nsukka. Our work spans several key areas:</p>
+              <p>We support learning and daily campus services through technology.</p>
             </div>
             <div class="about-work-grid">
               <article class="about-work-card">
                 <h3>Digital Skills Training</h3>
-                <p>We design and deliver hands-on training programmes for students and staff. Our offerings include intensive courses in computer programming — covering HTML, CSS, and Bootstrap — as well as broader ICT literacy programmes that equip our community with market-relevant skills.</p>
+                <p>Practical computer and coding courses for students and staff.</p>
               </article>
               <article class="about-work-card">
                 <h3>E-Learning &amp; Research Support</h3>
-                <p>Through our e-learning halls and conference facilities, we provide the infrastructure that powers teaching, learning, and research across the university. We are committed to making digital education accessible and effective for every member of our community.</p>
+                <p>Facilities that support digital teaching, learning, and research.</p>
               </article>
               <article class="about-work-card">
                 <h3>ICT Infrastructure &amp; Services</h3>
-                <p>We manage the university's core ICT services, including data center operations, website management, and internet connectivity. Our solar-powered data center ensures that these services remain stable and uninterrupted.</p>
+                <p>Website, data center, network, and campus internet services.</p>
               </article>
               <article class="about-work-card">
                 <h3>Innovation &amp; Collaboration</h3>
-                <p>We serve as a platform for innovation initiatives and partnerships. We have hosted and supported programmes that bring together students, staff, and external partners to explore new ideas in technology, entrepreneurship, and digital solutions.</p>
+                <p>Working with the university community to develop useful ideas.</p>
               </article>
             </div>
           </div>
@@ -218,7 +181,7 @@
           <article class="about-vision">
             <span class="eyebrow">LOOKING AHEAD</span>
             <h2>Our Vision</h2>
-            <p>We are driven by a simple belief: that technology is a catalyst for transformation. Our goal is to position the University of Nigeria, Nsukka, at the forefront of digital innovation in Nigeria and beyond — equipping our community with the skills, infrastructure, and opportunities they need to thrive in a rapidly changing world.</p>
+            <p>We aim to help UNN lead in digital innovation by giving our community useful skills, reliable technology, and room to create.</p>
           </article>
         </section>
       </section>
@@ -230,12 +193,12 @@
         <div class="subpage-heading">
           <span class="eyebrow"><span class="eyebrow-dot"></span> UNIT 04 · INNOVATION</span>
           <h1>Let’s make room<br>for <span>great ideas.</span></h1>
-          <p>Host your next meeting with us, or find the official registration for your UNN ID card.</p>
+          <p>Request a meeting or register for your UNN ID card.</p>
         </div>
         <div class="innovation-actions">
           <button class="innovation-option" type="button" data-page="meeting">
             <span class="option-icon option-orange" aria-hidden="true">✳</span>
-            <span class="option-copy"><small>CONFERENCE ROOM · ON-SITE · OUTSIDE</small><strong>Request to host a meeting</strong><span>Tell us what you have in mind and our team will follow up with details.</span></span>
+            <span class="option-copy"><small>FACILITY OR OFF-SITE</small><strong>Request a meeting</strong><span>Share your preferred location and meeting details.</span></span>
             <span class="option-arrow" aria-hidden="true">↗</span>
           </button>
           <button class="innovation-option" type="button" data-page="id-card">
@@ -253,13 +216,13 @@
         <div class="subpage-heading">
           <span class="eyebrow"><span class="eyebrow-dot"></span> UNIT 04 · MEETING REQUEST</span>
           <h1>Let’s find the right<br><span>place to meet.</span></h1>
-          <p>Choose a meeting option and share a few details. Our Innovation Unit will follow up about availability and pricing.</p>
+          <p>Choose a facility or off-site meeting. We’ll confirm availability and cost.</p>
         </div>
         <section class="meeting-panel glass-panel" id="meeting-panel" aria-labelledby="meeting-heading">
           <div class="panel-heading"><span class="eyebrow">MEETING REQUEST</span><h2 id="meeting-heading">Where would you like to meet?</h2><p>Select an option to open the right request form.</p></div>
           <div class="meeting-choice-row">
-            <button type="button" class="meeting-choice" data-meeting-type="facility"><span class="choice-number">01</span><span><strong>Book a meeting with our facilities</strong><small>Conference room or available ICT Center facilities</small></span><span aria-hidden="true">→</span></button>
-            <button type="button" class="meeting-choice" data-meeting-type="outside"><span class="choice-number">02</span><span><strong>Book a meeting with us outside</strong><small>Have our team host or support your meeting at your location</small></span><span aria-hidden="true">→</span></button>
+            <button type="button" class="meeting-choice" data-meeting-type="facility"><span class="choice-number">01</span><span><strong>At an ICT Center facility</strong><small>Request a conference room or other facility</small></span><span aria-hidden="true">→</span></button>
+            <button type="button" class="meeting-choice" data-meeting-type="outside"><span class="choice-number">02</span><span><strong>At my location</strong><small>Request on-site hosting or support</small></span><span aria-hidden="true">→</span></button>
           </div>
           <form class="meeting-form" id="meeting-form" hidden novalidate>
             <div class="form-heading"><div><span class="eyebrow" id="meeting-form-type">FACILITY MEETING</span><h3>Tell us the details</h3></div><button type="button" class="form-back" data-reset-meeting>Change meeting type</button></div>
@@ -300,7 +263,7 @@
         <div class="subpage-heading training-page-heading">
           <span class="eyebrow"><span class="eyebrow-dot"></span> UNIT 05 · TRAINING</span>
           <h1>We build skills for<br><span>what comes next.</span></h1>
-          <p>Choose Basic Computer or Coding training, then register with your details. Course fees are shown before payment.</p>
+          <p>Choose a course to see its fee. Online payment is not available yet.</p>
           <button class="button button-primary register-training" type="button" data-show-training-form>Register now <span aria-hidden="true">↗</span></button>
         </div>
         <section class="training-form-wrap" id="training-registration" hidden aria-labelledby="training-title">
@@ -319,7 +282,7 @@
                 <label class="full-field">Course<select name="course" required><option value="" selected disabled>Select a course</option><option value="basic">Basic Computer</option><option value="coding">Coding</option></select></label>
               </div>
               <div class="course-fee"><span>Course fee</span><strong id="course-fee">Select a course</strong></div>
-              <div class="payment-notice" role="status"><span aria-hidden="true">ⓘ</span><span>The PayPal checkout link has not been configured yet. Registration details will not be sent or saved until payment and registration are connected.</span></div>
+              <div class="payment-notice" role="status"><span aria-hidden="true">ⓘ</span><span>Online payment is not set up yet. Your registration details will not be sent or saved.</span></div>
               <button class="button button-primary payment-button" type="submit" disabled>Pay with PayPal <span aria-hidden="true">↗</span></button>
               <p class="payment-caption">Payments: ₦25,000 for Basic Computer · ₦35,000 for Coding</p>
             </form>
@@ -334,7 +297,7 @@
         <div class="subpage-heading">
           <span class="eyebrow"><span class="eyebrow-dot"></span> UNIT 08 · SOFTWARE</span>
           <h1>A website built<br>around <span>your idea.</span></h1>
-          <p>Tell our team what you need. We’ll review your requirements and contact you to agree on a fixed project cost.</p>
+          <p>Describe your project. We’ll review it and agree on a fixed cost.</p>
         </div>
         <form class="service-request-form glass-panel" data-service-form="software" novalidate>
           <div class="panel-heading"><span class="eyebrow">WEBSITE PROJECT ENQUIRY</span><h2>Tell us about your website</h2><p>Share enough detail for our team to understand your project.</p></div>
@@ -361,7 +324,7 @@
         <div class="subpage-heading">
           <span class="eyebrow"><span class="eyebrow-dot"></span> UNIT 07 · HARDWARE</span>
           <h1>Let’s get your<br>device <span>working.</span></h1>
-          <p>We at Hardware assesses laptop and computer-related repairs at the MIS Building. Pricing depends on the device and issue.</p>
+          <p>Computer repairs are assessed at the MIS Building. Cost depends on the issue.</p>
         </div>
         <form class="service-request-form glass-panel" data-service-form="hardware" novalidate>
           <div class="panel-heading"><span class="eyebrow">REPAIR ENQUIRY</span><h2>Describe the device issue</h2><p>Our Hardware Unit is located at the MIS Building. We’ll follow up about assessment and pricing.</p></div>
@@ -387,7 +350,7 @@
         <div class="subpage-heading">
           <span class="eyebrow"><span class="eyebrow-dot"></span> UNIT 09 · STUDENT PORTAL</span>
           <h1>Let’s get your<br>portal <span>sorted.</span></h1>
-          <p>Having trouble with your student portal? Send the us the details below so we can help.</p>
+          <p>Describe your UNN student portal issue so our team can help.</p>
         </div>
         <form class="service-request-form glass-panel" data-service-form="portal" novalidate>
           <div class="panel-heading"><span class="eyebrow">STUDENT PORTAL SUPPORT</span><h2>Tell us what’s happening</h2><p>Include enough detail for the team to identify and investigate the issue.</p></div>
@@ -397,7 +360,7 @@
             <label>Phone number<input name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="+234 800 000 0000"></label>
             <label>Student registration number<input name="registrationNumber" required maxlength="40" placeholder="Your UNN registration number"></label>
             <label>Department<input name="department" required maxlength="120" placeholder="Your department"></label>
-            <label>Email<input name="Email" required maxlength="120" placeholder="Email"></label>
+            <label>Email<input name="Email" type="email" required maxlength="120" placeholder="Email"></label>
             <label>Portal issue<select name="issueType" required><option value="" selected disabled>Select an issue</option><option>Cannot log in</option><option>Password or account access</option><option>Registration or course issue</option><option>Payment or fee issue</option><option>Results or academic record</option><option>Other</option></select></label>
             <label class="full-field">Describe the issue<textarea name="description" required maxlength="3000" rows="4" placeholder="What were you trying to do, and what happened? Please do not include your password."></textarea></label>
           </div>

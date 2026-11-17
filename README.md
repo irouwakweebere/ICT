@@ -16,6 +16,8 @@ Open `http://localhost:3000`.
 
 The Innovation Unit, meeting request, ID card, training registration, Software Unit website request, Hardware Unit repair request, and Portal Unit support request each have their own navigable page. The home page's Get in touch form and the meeting, software, hardware, and portal request forms are validated by the server and sent through Resend. Configure `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `INNOVATION_EMAIL` in `.env`; submissions are delivered to `INNOVATION_EMAIL`.
 
+The home page shows five of the nine service units at a time in an asymmetric grid. Use the arrow controls below the grid to flip between the first five units and the remaining four.
+
 The website displays ICT's public contact address (`ict@unn.edu.ng`). Set `INNOVATION_EMAIL` to the inbox that should receive submitted forms. Keep `.env` out of version control.
 
 Training registration and payment are not connected: the Pay button is intentionally disabled, and student/guardian details are not submitted or stored.

@@ -10,14 +10,6 @@ const pageViews = {
   portal: document.querySelector("#portal-view")
 };
 
-const safeStoredTheme = localStorage.getItem("ict-theme");
-if (safeStoredTheme === "dark") document.body.classList.add("dark-theme");
-document.querySelector(".theme-toggle").addEventListener("click", (event) => {
-  const isDark = document.body.classList.toggle("dark-theme");
-  localStorage.setItem("ict-theme", isDark ? "dark" : "light");
-  event.currentTarget.setAttribute("aria-label", `Switch to ${isDark ? "light" : "dark"} theme`);
-});
-
 document.querySelector("#current-year").textContent = new Date().getFullYear();
 
 async function readJsonResponse(response) {
@@ -44,7 +36,7 @@ function showPage(page, addHistory = true) {
     else url.searchParams.set("page", page);
     window.history.pushState({ page }, "", `${url.pathname}${url.search}${url.hash}`);
   }
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0 });
 }
 
 function goToUnitsSection() {
@@ -53,7 +45,7 @@ function goToUnitsSection() {
   if (unitsSection) {
     requestAnimationFrame(() => {
       const yOffset = unitsSection.getBoundingClientRect().top + window.scrollY - 18;
-      window.scrollTo({ top: yOffset, behavior: "smooth" });
+      window.scrollTo({ top: yOffset });
     });
   }
 }
@@ -80,6 +72,95 @@ document.querySelectorAll("[data-page]").forEach((control) => {
 });
 window.addEventListener("popstate", () => showPage(currentPage(), false));
 showPage(currentPage(), false);
+
+const unitGrid = document.querySelector("#unit-grid");
+const unitCards = [...unitGrid.querySelectorAll("[data-unit-card]")];
+const unitPageLabel = document.querySelector("#unit-page-label");
+const unitPreviousButton = document.querySelector("#unit-page-previous");
+const unitNextButton = document.querySelector("#unit-page-next");
+const unitPageStatus = document.querySelector("#unit-page-status");
+const unitsPerPage = 5;
+let unitPage = 0;
+let unitPageTransitioning = false;
+
+function changeUnitPage(nextPage) {
+  if (nextPage === unitPage || unitPageTransitioning) return;
+
+  const start = nextPage * unitsPerPage;
+  const end = Math.min(start + unitsPerPage, unitCards.length);
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const direction = nextPage > unitPage ? "next" : "previous";
+  const visibleCards = unitCards.filter((card) => !card.hidden);
+  const enteringCards = unitCards.slice(start, end);
+
+  function orderCards(cards, rightToLeft) {
+    const ordered = [...cards].sort((first, second) => {
+      const firstRect = first.getBoundingClientRect();
+      const secondRect = second.getBoundingClientRect();
+      const horizontalDifference = rightToLeft
+        ? secondRect.right - firstRect.right
+        : firstRect.left - secondRect.left;
+      return horizontalDifference || firstRect.top - secondRect.top;
+    });
+    ordered.forEach((card, index) => {
+      card.style.setProperty("--flip-order", index);
+    });
+  }
+
+  unitPageTransitioning = true;
+  unitPreviousButton.disabled = true;
+  unitNextButton.disabled = true;
+  unitGrid.dataset.direction = direction;
+  orderCards(visibleCards, direction === "next");
+
+  const updateGrid = () => {
+    unitPage = nextPage;
+    unitGrid.dataset.page = nextPage === 0 ? "first" : "second";
+    unitCards.forEach((card, index) => {
+      card.hidden = index < start || index >= end;
+    });
+    unitPageLabel.textContent = nextPage === 0 ? "View other units" : "View first five units";
+    unitPreviousButton.hidden = nextPage === 0;
+    unitNextButton.hidden = nextPage === 1;
+    unitPreviousButton.setAttribute("aria-label", "View first five units");
+    unitNextButton.setAttribute("aria-label", "View other units");
+    unitPageStatus.textContent = `Showing units ${start + 1}–${end} of ${unitCards.length}`;
+
+    if (reducedMotion) {
+      unitGrid.classList.remove("is-flipping", "is-entering", "is-settling");
+      unitPageTransitioning = false;
+      unitPreviousButton.disabled = false;
+      unitNextButton.disabled = false;
+      (nextPage === 0 ? unitNextButton : unitPreviousButton).focus();
+      return;
+    }
+
+    orderCards(enteringCards, direction === "previous");
+    unitGrid.classList.remove("is-flipping");
+    unitGrid.classList.add("is-entering");
+    unitGrid.offsetWidth;
+    unitGrid.classList.add("is-settling");
+
+    window.setTimeout(() => {
+      unitGrid.classList.remove("is-entering", "is-settling");
+      unitPageTransitioning = false;
+      unitPreviousButton.disabled = false;
+      unitNextButton.disabled = false;
+      (nextPage === 0 ? unitNextButton : unitPreviousButton).focus();
+    }, 600);
+  };
+
+  if (reducedMotion) {
+    updateGrid();
+    return;
+  }
+
+  unitGrid.classList.add("is-flipping");
+  window.setTimeout(updateGrid, 560);
+}
+
+unitPreviousButton.addEventListener("click", () => changeUnitPage(0));
+unitNextButton.addEventListener("click", () => changeUnitPage(1));
 
 const meetingForm = document.querySelector("#meeting-form");
 const meetingType = document.querySelector("#meeting-type");
@@ -110,7 +191,7 @@ document.querySelectorAll("[data-meeting-type]").forEach((button) => {
     meetingForm.hidden = false;
     meetingStatus.className = "form-status";
     meetingStatus.textContent = "We’ll contact you to discuss availability and pricing.";
-    meetingForm.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    meetingForm.scrollIntoView({ block: "nearest" });
   });
 });
 
@@ -172,7 +253,7 @@ meetingForm.addEventListener("submit", async (event) => {
 const trainingRegistration = document.querySelector("#training-registration");
 document.querySelector("[data-show-training-form]").addEventListener("click", () => {
   trainingRegistration.hidden = false;
-  trainingRegistration.scrollIntoView({ behavior: "smooth", block: "start" });
+  trainingRegistration.scrollIntoView({ block: "start" });
   document.querySelector("#training-form input[name='name']").focus({ preventScroll: true });
 });
 
@@ -184,7 +265,7 @@ courseSelect.addEventListener("change", () => {
 document.querySelector("#training-form").addEventListener("submit", (event) => {
   event.preventDefault();
   if (!event.currentTarget.reportValidity()) return;
-  document.querySelector(".payment-notice").scrollIntoView({ behavior: "smooth", block: "center" });
+  document.querySelector(".payment-notice").scrollIntoView({ block: "center" });
 });
 
 document.querySelector("[data-show-contact]").addEventListener("click", (event) => {
@@ -194,7 +275,7 @@ document.querySelector("[data-show-contact]").addEventListener("click", (event) 
   form.hidden = !isOpening;
   button.setAttribute("aria-expanded", String(isOpening));
   if (isOpening) {
-    form.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    form.scrollIntoView({ block: "nearest" });
     form.querySelector("input[name='name']").focus({ preventScroll: true });
   }
 });
